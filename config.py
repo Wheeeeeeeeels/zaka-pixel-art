@@ -1,4 +1,7 @@
 class Config:
+    # 调试设置
+    DEBUG = True
+    
     # 屏幕设置
     SCREEN_WIDTH = 800
     SCREEN_HEIGHT = 600
@@ -24,10 +27,16 @@ class Config:
     GREEN = (0, 255, 0)
     BLUE = (0, 0, 255)
     
+    # 音频设置
+    SOUND_VOLUME = 0.7
+    MUSIC_VOLUME = 0.5
+    
     # 资源路径
     PLAYER_SPRITE_PATH = "assets/images/characters/player.png"
     TILESET_PATH = "assets/images/tiles/tileset.png"
     MAP_DATA_PATH = "assets/data/maps.json"
+    SOUNDS_PATH = "assets/sounds/"
+    MUSIC_PATH = "assets/music/"
 
     def __init__(self):
         # 屏幕设置

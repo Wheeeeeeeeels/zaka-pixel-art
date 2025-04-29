@@ -12,10 +12,17 @@ class Player:
         self.velocity_y = 0
         self.jumping = False
         self.facing_right = True
-        self.state = "idle"  # idle, running, jumping, falling
+        self.state = "idle"  # idle, running, jumping, falling, attacking
         self.animation_frame = 0
         self.animation_timer = 0
         self.on_ground = False
+        self.attacking = False
+        self.attack_timer = 0
+        self.attack_duration = 20  # 攻击动作持续帧数
+        self.attack_cooldown = 30  # 攻击冷却帧数
+        self.attack_damage = 10
+        self.health = 100
+        self.max_health = 100
         
         # 加载玩家精灵图
         self.sprite_sheet = pygame.image.load(config.PLAYER_SPRITE_PATH).convert_alpha()
@@ -23,7 +30,8 @@ class Player:
             "idle": self.load_animation_frames(0, 4),
             "running": self.load_animation_frames(4, 8),
             "jumping": self.load_animation_frames(8, 9),
-            "falling": self.load_animation_frames(9, 10)
+            "falling": self.load_animation_frames(9, 10),
+            "attacking": self.load_animation_frames(10, 12)
         }
         
     def load_animation_frames(self, start_frame, end_frame):
@@ -36,25 +44,60 @@ class Player:
         
     def handle_input(self, keys):
         # 水平移动
-        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            self.velocity_x = -self.config.PLAYER_SPEED
-            self.facing_right = False
-            self.state = "running"
-        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            self.velocity_x = self.config.PLAYER_SPEED
-            self.facing_right = True
-            self.state = "running"
-        else:
-            self.velocity_x = 0
-            if not self.jumping:
-                self.state = "idle"
-                
+        if not self.attacking:  # 攻击时不能移动
+            if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+                self.velocity_x = -self.config.PLAYER_SPEED
+                self.facing_right = False
+                self.state = "running"
+            elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+                self.velocity_x = self.config.PLAYER_SPEED
+                self.facing_right = True
+                self.state = "running"
+            else:
+                self.velocity_x = 0
+                if not self.jumping and not self.attacking:
+                    self.state = "idle"
+                    
         # 跳跃
-        if (keys[pygame.K_SPACE] or keys[pygame.K_UP] or keys[pygame.K_w]) and self.on_ground:
+        if (keys[pygame.K_SPACE] or keys[pygame.K_UP] or keys[pygame.K_w]) and self.on_ground and not self.attacking:
             self.velocity_y = -self.config.JUMP_FORCE
             self.jumping = True
             self.on_ground = False
             self.state = "jumping"
+            
+        # 攻击
+        if keys[pygame.K_j] and not self.attacking and self.attack_timer <= 0:
+            self.start_attack()
+            
+    def start_attack(self):
+        self.attacking = True
+        self.attack_timer = self.attack_duration
+        self.state = "attacking"
+        self.animation_frame = 0
+        
+    def update_attack(self):
+        if self.attacking:
+            self.attack_timer -= 1
+            if self.attack_timer <= 0:
+                self.attacking = False
+                self.attack_timer = self.attack_cooldown
+                self.state = "idle"
+        elif self.attack_timer > 0:
+            self.attack_timer -= 1
+            
+    def get_attack_rect(self):
+        if not self.attacking:
+            return None
+        
+        attack_width = self.width
+        attack_height = self.height
+        
+        if self.facing_right:
+            return pygame.Rect(self.x + self.width, self.y,
+                             attack_width, attack_height)
+        else:
+            return pygame.Rect(self.x - attack_width, self.y,
+                             attack_width, attack_height)
             
     def check_collision(self, map):
         # 检查水平碰撞
@@ -86,6 +129,9 @@ class Player:
                 self.y = (tile_y + 1) * self.config.TILE_SIZE
                 
     def update(self, map):
+        # 更新攻击状态
+        self.update_attack()
+        
         # 应用重力
         self.velocity_y += self.config.GRAVITY
         
@@ -115,4 +161,28 @@ class Player:
         screen_y = self.y - camera.y
         
         # 绘制玩家
-        screen.blit(current_frame, (screen_x, screen_y)) 
+        screen.blit(current_frame, (screen_x, screen_y))
+        
+        # 绘制生命值条
+        health_width = 50
+        health_height = 5
+        health_x = screen_x + (self.width - health_width) // 2
+        health_y = screen_y - 10
+        
+        # 背景
+        pygame.draw.rect(screen, self.config.RED,
+                        (health_x, health_y, health_width, health_height))
+        # 当前生命值
+        current_health_width = (self.health / self.max_health) * health_width
+        pygame.draw.rect(screen, self.config.GREEN,
+                        (health_x, health_y, current_health_width, health_height))
+        
+        # 调试：显示攻击范围
+        if self.attacking and self.config.DEBUG:
+            attack_rect = self.get_attack_rect()
+            if attack_rect:
+                pygame.draw.rect(screen, self.config.RED,
+                               (attack_rect.x - camera.x,
+                                attack_rect.y - camera.y,
+                                attack_rect.width,
+                                attack_rect.height), 1) 
