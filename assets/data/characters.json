@@ -1,0 +1,95 @@
+{
+    "rosiel": {
+        "name": "Rosiel",
+        "type": "angel",
+        "stats": {
+            "health": 100,
+            "mana": 100,
+            "attack": 10,
+            "defense": 5,
+            "speed": 8
+        },
+        "abilities": {
+            "foresight": {
+                "name": "预知",
+                "description": "可以预见未来的能力",
+                "cost": 20,
+                "cooldown": 5
+            },
+            "heal": {
+                "name": "治愈",
+                "description": "恢复生命值",
+                "cost": 15,
+                "cooldown": 3
+            }
+        },
+        "sprites": {
+            "idle": "characters/rosiel/idle.png",
+            "walk": "characters/rosiel/walk.png",
+            "attack": "characters/rosiel/attack.png",
+            "hurt": "characters/rosiel/hurt.png"
+        }
+    },
+    "lucifer": {
+        "name": "路西法",
+        "type": "fallen_angel",
+        "stats": {
+            "health": 150,
+            "mana": 120,
+            "attack": 15,
+            "defense": 8,
+            "speed": 10
+        },
+        "abilities": {
+            "dark_flame": {
+                "name": "暗焰",
+                "description": "释放黑暗火焰",
+                "cost": 25,
+                "cooldown": 4
+            },
+            "shadow_step": {
+                "name": "暗影步",
+                "description": "瞬间移动",
+                "cost": 20,
+                "cooldown": 3
+            }
+        },
+        "sprites": {
+            "idle": "characters/lucifer/idle.png",
+            "walk": "characters/lucifer/walk.png",
+            "attack": "characters/lucifer/attack.png",
+            "hurt": "characters/lucifer/hurt.png"
+        }
+    },
+    "michael": {
+        "name": "米迦勒",
+        "type": "archangel",
+        "stats": {
+            "health": 200,
+            "mana": 150,
+            "attack": 20,
+            "defense": 12,
+            "speed": 9
+        },
+        "abilities": {
+            "holy_light": {
+                "name": "圣光",
+                "description": "释放神圣光芒",
+                "cost": 30,
+                "cooldown": 5
+            },
+            "divine_shield": {
+                "name": "神圣护盾",
+                "description": "创造防护罩",
+                "cost": 25,
+                "cooldown": 4
+            }
+        },
+        "sprites": {
+            "idle": "characters/michael/idle.png",
+            "walk": "characters/michael/walk.png",
+            "attack": "characters/michael/attack.png",
+            "hurt": "characters/michael/hurt.png"
+        }
+    }
+} 

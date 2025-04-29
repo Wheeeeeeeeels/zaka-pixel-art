@@ -1,0 +1,58 @@
+{
+    "weapons": {
+        "holy_sword": {
+            "name": "圣剑",
+            "type": "weapon",
+            "damage": 15,
+            "range": 1,
+            "speed": 1.0,
+            "description": "神圣的剑，对恶魔造成额外伤害",
+            "sprite": "items/weapons/holy_sword.png"
+        },
+        "dark_blade": {
+            "name": "暗刃",
+            "type": "weapon",
+            "damage": 20,
+            "range": 1,
+            "speed": 1.2,
+            "description": "黑暗的剑，对天使造成额外伤害",
+            "sprite": "items/weapons/dark_blade.png"
+        }
+    },
+    "armor": {
+        "holy_armor": {
+            "name": "圣甲",
+            "type": "armor",
+            "defense": 10,
+            "resistance": 5,
+            "description": "神圣的铠甲，提供额外的防御",
+            "sprite": "items/armor/holy_armor.png"
+        },
+        "dark_armor": {
+            "name": "暗甲",
+            "type": "armor",
+            "defense": 12,
+            "resistance": 8,
+            "description": "黑暗的铠甲，提供额外的抗性",
+            "sprite": "items/armor/dark_armor.png"
+        }
+    },
+    "consumables": {
+        "health_potion": {
+            "name": "生命药水",
+            "type": "consumable",
+            "effect": "heal",
+            "value": 50,
+            "description": "恢复50点生命值",
+            "sprite": "items/consumables/health_potion.png"
+        },
+        "mana_potion": {
+            "name": "法力药水",
+            "type": "consumable",
+            "effect": "mana",
+            "value": 30,
+            "description": "恢复30点法力值",
+            "sprite": "items/consumables/mana_potion.png"
+        }
+    }
+} 

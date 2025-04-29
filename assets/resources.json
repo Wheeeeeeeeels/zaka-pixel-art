@@ -1,0 +1,36 @@
+{
+    "images": {
+        "player": "characters/player.png",
+        "tiles": "tiles/tileset.png",
+        "background": "backgrounds/background.png",
+        "ui": {
+            "buttons": "ui/buttons.png",
+            "icons": "ui/icons.png"
+        }
+    },
+    "sounds": {
+        "jump": "sfx/jump.ogg",
+        "attack": "sfx/attack.ogg",
+        "hurt": "sfx/hurt.ogg"
+    },
+    "music": {
+        "main_theme": "music/main_theme.ogg",
+        "battle": "music/battle.ogg",
+        "menu": "music/menu.ogg"
+    },
+    "fonts": {
+        "main": {
+            "path": "fonts/main.ttf",
+            "size": 24
+        },
+        "title": {
+            "path": "fonts/title.ttf",
+            "size": 48
+        }
+    },
+    "data": {
+        "characters": "data/characters.json",
+        "items": "data/items.json",
+        "maps": "data/maps.json"
+    }
+} 
